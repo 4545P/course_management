@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //資料庫
+    implementation 'mysql:mysql-connector-java:8.0.31'
+    //網頁
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //信箱
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    //登入功能 狗都不用
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    //圖表
+    implementation 'net.sf.ehcache:ehcache:2.10.6'
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
