@@ -10,8 +10,5 @@ import java.util.Optional;
 @Repository
 public interface CourseDao extends JpaRepository<Course, String> {
 
-
-   public Optional<Course> findByCourseCode(String courseCode);
-
    public List<Course> findAllByCourseTitleContainingIgnoreCase(String title);
 }

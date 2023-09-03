@@ -21,6 +21,7 @@ public class AdminInitialization {
         this.personnelDao = personnelDao;
     }
 
+    //預設建立超級管理員
     @EventListener(value = ApplicationReadyEvent.class)
     public void initializeAdmin() {
         // Check if the admin already exists

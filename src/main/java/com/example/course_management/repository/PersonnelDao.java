@@ -17,9 +17,6 @@ public interface PersonnelDao extends JpaRepository<Personnel, Integer> {
 
     public Personnel findByName(String name);
 
-    public Personnel findByRole(String role);
-
     public List<Personnel> findAllByNameContainingIgnoreCase(String name);
 
-    public long countByNameContainingIgnoreCase(String name);
 }

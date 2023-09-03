@@ -19,5 +19,4 @@ public interface ScheduleManagementDao extends JpaRepository<ScheduleManagement,
 
    public  ScheduleManagement findByStudentIdAndCourseCodeAndCourseProject(String string, String courseCode, String courseProject);
 
-    public List<ScheduleManagement> findByCourseCodeAndCourseProject(String courseCode, String courseProject);
 }

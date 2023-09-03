@@ -34,10 +34,10 @@ public class VerificationServiceImpl implements VerificationService {
     // 生成并发送验证码
     @Override
     public String sendPersonnelVerificationCode(String email) {
-        // 生成随机验证码
+        // 隨機生成驗證碼
         String verificationCode = generateVerificationCode();
 
-        // 发送带有验证码的电子邮件
+        // 發送帶有驗證碼的郵件
         String subject = "Email Verification";
         String body = "驗證碼: " + verificationCode;
 
@@ -56,16 +56,15 @@ public class VerificationServiceImpl implements VerificationService {
         //調用發送郵件方法
         sendEmail(email, "Monthly Billing Statement", body);
 
-        // 这里可以添加保存验证码等相关逻辑
         return verificationCode;
     }
 
     @Override
     public String sendStudentVerificationCode(String email) {
-        // 生成随机验证码
+        // 隨機生成驗證碼
         String verificationCode = generateVerificationCode();
 
-        // 发送带有验证码的电子邮件
+        // 發送帶有驗證碼的郵件
         String subject = "Email Verification";
         String body = "驗證碼: " + verificationCode;
 
@@ -84,14 +83,13 @@ public class VerificationServiceImpl implements VerificationService {
         //調用發送郵件方法
         sendEmail(email, "Monthly Billing Statement", body);
 
-        // 这里可以添加保存验证码等相关逻辑
         return verificationCode;
     }
 
-    // 生成随机验证码的逻辑
+
     @Override
     public String generateVerificationCode() {
-        // 生成一个六位数的随机数
+        // 生成隨機六位數驗證碼
         int code = 100000 + new Random().nextInt(900000);
         return String.valueOf(code);
     }

@@ -14,13 +14,13 @@ import java.util.Random;
 
 public interface VerificationService {
 
-    // 生成并发送人員验证码
+    // 發送人員驗證碼
     public String sendPersonnelVerificationCode(String email);
 
-    //生成並發送學生驗證碼
+    // 發送學生驗證碼
     public String sendStudentVerificationCode(String email);
 
-    // 生成随机验证码的逻辑
+    // 生成驗證碼
     public String generateVerificationCode();
 
     // 使用JavaMailSender接口發送郵件

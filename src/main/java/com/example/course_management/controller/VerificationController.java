@@ -120,7 +120,7 @@ public class VerificationController {
                 response.put("success", false);
             }
         } else {
-            // 找不到對應的人員
+            // 找不到對應的學生
             response.put("success", false);
         }
 

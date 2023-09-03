@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer> {
-    public CourseSchedule findByCourseProject(String courseProject);
 
     public CourseSchedule findByCourseCode(String courseCode);
 

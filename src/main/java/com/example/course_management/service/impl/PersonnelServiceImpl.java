@@ -42,9 +42,9 @@ public class PersonnelServiceImpl implements PersonnelService {
 
         if (name != null && !name.isEmpty()) {
             personnelList = personnelDao.findAllByNameContainingIgnoreCase(name);
-            totalElements = personnelList.size(); // 计算总数
+            totalElements = personnelList.size(); // 計算總數
         } else {
-            // 如果没有传入名称参数，则返回全部人员
+            // 如果沒有參數則返回全部
             personnelList = personnelDao.findAll();
             totalElements = personnelList.size();
         }
@@ -66,9 +66,9 @@ public class PersonnelServiceImpl implements PersonnelService {
 
         if (name != null && !name.isEmpty()) {
             studentList = studentDao.findAllByNameContainingIgnoreCase(name);
-            totalElements = studentList.size(); // 计算总数
+            totalElements = studentList.size(); // 計算總數
         } else {
-            // 如果没有传入名称参数，则返回全部人员
+            // 如果沒有參數則返回全部
             studentList = studentDao.findAll();
             totalElements = studentList.size();
         }
@@ -161,17 +161,15 @@ public class PersonnelServiceImpl implements PersonnelService {
         try {
             student = studentDao.save(student);
 
-            // 在这里新增相应的选课表数据
-            // 在学生数据储存后，使用其属性值来设置选课表数据
+            // 新增相應的選課表數據
             CourseSelection courseSelection = new CourseSelection();
             courseSelection.setStudentId(student.getStudentId()); // 设置学号
             courseSelection.setName(student.getName()); // 设置姓名
-            // 其他选课表的属性设置
             courseSelectionDao.save(courseSelection);
 
             return new PersonnelResponse("新增學員成功", Collections.singletonList(student));
         } catch (Exception e) {
-            // 处理数据库保存异常
+            // 處理資料庫保存異常
             return new PersonnelResponse("新增學員失敗", Collections.singletonList(student));
         }
     }
@@ -252,30 +250,28 @@ public class PersonnelServiceImpl implements PersonnelService {
 
         Personnel userPersonnel = personnelDao.findByName(name);
 
-        // 如果找到了人员记录并且密码匹配，验证成功
+        // 如果人員有紀錄則比對密碼
         if (userPersonnel != null) {
-            // 如果找到学员记录，手动比对密码
             if (password.equals(userPersonnel.getPassword())) {
                 return new PersonnelResponse(userPersonnel.getRole(), userPersonnel.getId(), userPersonnel.getName(), userPersonnel.getPassword(), userPersonnel.getEnable(), userPersonnel.getEmail());
             }
         }
 
-        // 如果不是人员，尝试查找学员
+        // 如果不是人員則找學員
         Student userStudent = studentDao.findByName(name);
 
-        // 如果找到了学员记录并且密码匹配，验证成功
+        // 如果學員有紀錄則比對密碼
         if (userStudent != null) {
-            // 如果找到学员记录，手动比对密码
             if (password.equals(userStudent.getPassword())) {
                 return new PersonnelResponse("student", userStudent.getStudentId(), userStudent.getName(), userStudent.getPassword(), userStudent.isEnable(), userStudent.getEmail());
             }
         }
 
-        // 如果找不到用户记录或密码不匹配，返回 "登入失敗"
         return new PersonnelResponse("登入失敗");
     }
 
 
+    //檢查補助資格
     private int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         return currentDate.getYear() - birthDate.getYear();
     }

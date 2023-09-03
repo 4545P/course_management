@@ -44,9 +44,9 @@ public class CourseServiceImpl implements CourseService {
 
         if (courseTitle != null && !courseTitle.isEmpty()) {
             courseList = courseDao.findAllByCourseTitleContainingIgnoreCase(courseTitle);
-            totalElements = courseList.size(); // 计算总数
+            totalElements = courseList.size(); // 計算總數
         } else {
-            // 如果没有传入名称参数，则返回全部人员
+            // 如果沒有參數則回傳全部
             courseList = courseDao.findAll();
             totalElements = courseList.size();
         }
@@ -91,7 +91,7 @@ public class CourseServiceImpl implements CourseService {
 
         if (studentId != null) {
             scheduleList = scheduleManagementDao.findAllByStudentIdContainingIgnoreCase(studentId);
-            totalElements = scheduleList.size(); // 计算总数
+            totalElements = scheduleList.size(); // 計算總數
         } else {
             scheduleList = scheduleManagementDao.findAll();
             totalElements = scheduleList.size();
@@ -281,7 +281,6 @@ public class CourseServiceImpl implements CourseService {
             return new CourseResponse("新增課程日程失敗", errorList);
         }
 
-        // 保存课程日程记录
         courseScheduleDao.saveAll(scheduleList);
 
         return new CourseResponse("新增課程日程成功", scheduleList);
@@ -377,25 +376,23 @@ public class CourseServiceImpl implements CourseService {
     //每日上午八點確認選課學生
     @Scheduled(cron = "0 0 8 * * ?")
     public void updateCourseSchedules() {
-        // 查询已选择课程的学生
+        // 查詢已選課的學生
         List<CourseSelection> selectedCourses = courseSelectionDao.findStudentsWithSelectedCourses();
 
         for (CourseSelection studentCourse : selectedCourses) {
             Integer studentId = studentCourse.getStudentId();
             String courseCode = studentCourse.getCourseCode();
 
-            // 使用课程代号查找课程项目
             CourseSchedule course = courseScheduleDao.findByCourseCode(courseCode);
             String courseProject = course.getCourseProject();
 
-            // 检查是否已经存在与给定学生ID、课程代码和课程项目相关的进度管理记录
+            //檢查選課的學生是否有進度管理紀錄
             ScheduleManagement existingDefaultSchedule = scheduleManagementDao.findByStudentIdAndCourseCodeAndCourseProject(
                     studentId.toString(), courseCode, courseProject
             );
 
-            // 如果不存在默认的进度管理记录，则创建默认的记录
+            //如果沒有紀錄則創建預設進度管理紀錄
             if (existingDefaultSchedule == null) {
-                // 创建默认的进度管理记录
                 ScheduleManagement defaultSchedule = createDefaultSchedule(studentId, courseCode, courseProject);
                 scheduleManagementDao.save(defaultSchedule);
             }
