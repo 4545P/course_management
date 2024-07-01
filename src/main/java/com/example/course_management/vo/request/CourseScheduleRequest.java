@@ -1,82 +1,88 @@
 package com.example.course_management.vo.request;
 
-import com.example.course_management.entity.Course;
 import com.example.course_management.entity.CourseSchedule;
-
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * JI.
+ * 表示用於接收課程排程相關操作請求的請求對象。
+ * 這個類用於接收客戶端發送的課程排程相關操作的請求數據。
+ */
 public class CourseScheduleRequest {
 
-    public Integer id;
+  public Integer id;
 
-    public String courseCode;
+  public String courseCode;
 
-    public LocalDate courseDate;
+  public LocalDate courseDate;
 
-    public String courseOutline;
+  public String courseOutline;
 
-    public String courseProject;
+  public String courseProject;
 
-    public String courseContent;
+  public String courseContent;
 
-    public List<CourseSchedule> scheduleList;
-    public CourseScheduleRequest() {
-    }
+  public List<CourseSchedule> scheduleList;
 
-    public Integer getId() {
-        return id;
-    }
+  public CourseScheduleRequest() {
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  }
 
-    public String getCourseCode() {
-        return courseCode;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public LocalDate getCourseDate() {
-        return courseDate;
-    }
+  public String getCourseCode() {
+    return courseCode;
+  }
 
-    public void setCourseDate(LocalDate courseDate) {
-        this.courseDate = courseDate;
-    }
+  public void setCourseCode(String courseCode) {
+    this.courseCode = courseCode;
+  }
 
-    public String getCourseOutline() {
-        return courseOutline;
-    }
+  public LocalDate getCourseDate() {
+    return courseDate;
+  }
 
-    public void setCourseOutline(String courseOutline) {
-        this.courseOutline = courseOutline;
-    }
+  public void setCourseDate(LocalDate courseDate) {
+    this.courseDate = courseDate;
+  }
 
-    public String getCourseProject() {
-        return courseProject;
-    }
+  public String getCourseOutline() {
+    return courseOutline;
+  }
 
-    public void setCourseProject(String courseProject) {
-        this.courseProject = courseProject;
-    }
+  public void setCourseOutline(String courseOutline) {
+    this.courseOutline = courseOutline;
+  }
 
-    public String getCourseContent() {
-        return courseContent;
-    }
+  public String getCourseProject() {
+    return courseProject;
+  }
 
-    public void setCourseContent(String courseContent) {
-        this.courseContent = courseContent;
-    }
+  public void setCourseProject(String courseProject) {
+    this.courseProject = courseProject;
+  }
 
-    public List<CourseSchedule> getScheduleList() {
-        return scheduleList;
-    }
+  public String getCourseContent() {
+    return courseContent;
+  }
 
-    public void setScheduleList(List<CourseSchedule> scheduleList) {
-        this.scheduleList = scheduleList;
-    }
+  public void setCourseContent(String courseContent) {
+    this.courseContent = courseContent;
+  }
+
+  public List<CourseSchedule> getScheduleList() {
+    return scheduleList;
+  }
+
+  public void setScheduleList(List<CourseSchedule> scheduleList) {
+    this.scheduleList = scheduleList;
+  }
+
 }

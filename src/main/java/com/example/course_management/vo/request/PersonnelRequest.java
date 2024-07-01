@@ -1,133 +1,140 @@
 package com.example.course_management.vo.request;
 
 import com.example.course_management.entity.Personnel;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * JI.
+ * 表示用於接收人員相關操作請求的請求對象。
+ * 這個類用於接收客戶端發送的人員相關操作的請求數據。
+ */
 public class PersonnelRequest {
 
-    public Personnel personnel;
-    public Integer id;
+  public Personnel personnel;
 
-    public String name;
+  public Integer id;
 
-    public String password;
+  public String name;
 
-    public String email;
+  public String password;
 
-    public String role;
+  public String email;
 
-    public LocalDate birthday;
+  public String role;
 
-    public LocalDateTime registerDate;
+  public LocalDate birthday;
 
-    public boolean enable;
+  public LocalDateTime registerDate;
 
-    public String verificationCode;
+  public boolean enable;
 
-    public LocalDateTime verificationDate;
+  public String verificationCode;
 
-    public List<Personnel> userList;
+  public LocalDateTime verificationDate;
+
+  public List<Personnel> userList;
 
 
-    public PersonnelRequest() {
-    }
+  public PersonnelRequest() {
 
-    public Personnel getPersonnel() {
-        return personnel;
-    }
+  }
 
-    public void setPersonnel(Personnel personnel) {
-        this.personnel = personnel;
-    }
+  public Personnel getPersonnel() {
+    return personnel;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public void setPersonnel(Personnel personnel) {
+    this.personnel = personnel;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getRole() {
-        return role;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public LocalDate getBirthday() {
-        return birthday;
-    }
+  public void setRole(String role) {
+    this.role = role;
+  }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+  public LocalDate getBirthday() {
+    return birthday;
+  }
 
-    public LocalDateTime getRegisterDate() {
-        return registerDate;
-    }
+  public void setBirthday(LocalDate birthday) {
+    this.birthday = birthday;
+  }
 
-    public void setRegisterDate(LocalDateTime registerDate) {
-        this.registerDate = registerDate;
-    }
+  public LocalDateTime getRegisterDate() {
+    return registerDate;
+  }
 
-    public boolean isEnable() {
-        return enable;
-    }
+  public void setRegisterDate(LocalDateTime registerDate) {
+    this.registerDate = registerDate;
+  }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
+  public boolean isEnable() {
+    return enable;
+  }
 
-    public String getVerificationCode() {
-        return verificationCode;
-    }
+  public void setEnable(boolean enable) {
+    this.enable = enable;
+  }
 
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
+  public String getVerificationCode() {
+    return verificationCode;
+  }
 
-    public LocalDateTime getVerificationDate() {
-        return verificationDate;
-    }
+  public void setVerificationCode(String verificationCode) {
+    this.verificationCode = verificationCode;
+  }
 
-    public void setVerificationDate(LocalDateTime verificationDate) {
-        this.verificationDate = verificationDate;
-    }
+  public LocalDateTime getVerificationDate() {
+    return verificationDate;
+  }
 
-    public List<Personnel> getUserList() {
-        return userList;
-    }
+  public void setVerificationDate(LocalDateTime verificationDate) {
+    this.verificationDate = verificationDate;
+  }
 
-    public void setUserList(List<Personnel> userList) {
-        this.userList = userList;
-    }
+  public List<Personnel> getUserList() {
+    return userList;
+  }
+
+  public void setUserList(List<Personnel> userList) {
+    this.userList = userList;
+  }
+
 }

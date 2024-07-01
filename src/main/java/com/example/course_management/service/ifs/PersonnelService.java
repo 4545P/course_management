@@ -5,29 +5,30 @@ import com.example.course_management.entity.Student;
 import com.example.course_management.vo.request.PersonnelRequest;
 import com.example.course_management.vo.request.StudentRequest;
 import com.example.course_management.vo.response.PersonnelResponse;
-
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * JI.
+ * 人員服務接口，定義了人員相關操作的方法。
+ */
 public interface PersonnelService {
 
-    public Map<String, Object> getPersonnel(String name);
+  Map<String, Object> getPersonnel(String name);
 
-    public Map<String,Object> getStudent(String name);
+  Map<String, Object> getStudent(String name);
 
-    public PersonnelResponse addPersonnel(Personnel personnel);
+  PersonnelResponse addPersonnel(Personnel personnel);
 
-    public PersonnelResponse addStudent(Student student);
+  PersonnelResponse addStudent(Student student);
 
-    public PersonnelResponse updatePersonnel(PersonnelRequest personnelRequest);
+  PersonnelResponse updatePersonnel(PersonnelRequest personnelRequest);
 
-    public PersonnelResponse updateStudent(StudentRequest studentRequest);
+  PersonnelResponse updateStudent(StudentRequest studentRequest);
 
-    public PersonnelResponse deletePersonnel(Integer personnelId);
+  PersonnelResponse deletePersonnel(Integer personnelId);
 
-    public PersonnelResponse deleteStudent(Integer studentId);
+  PersonnelResponse deleteStudent(Integer studentId);
 
-    public PersonnelResponse isValidPersonnel(String name, String password);
+  PersonnelResponse isValidPersonnel(String name, String password);
 
 }

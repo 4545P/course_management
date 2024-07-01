@@ -26,16 +26,15 @@ dependencies {
     //信箱
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    //登入功能 狗都不用
+    //登入功能
     //implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
     //圖表
     implementation 'net.sf.ehcache:ehcache:2.10.6'
 
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+tasks.named('test', Test) {
     useJUnitPlatform()
 }

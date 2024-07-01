@@ -1,134 +1,139 @@
 package com.example.course_management.vo.request;
 
 import com.example.course_management.entity.Student;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * JI.
+ * 表示用於接收學生請求的請求對象。
+ * 這個類用於接收客戶端發送的學生相關操作的請求數據。
+ */
 public class StudentRequest {
 
-    public Student student;
+  public Student student;
 
-    public Integer studentId;
+  public Integer studentId;
 
-    public String name;
+  public String name;
 
-    public String password;
+  public String password;
 
-    public String email;
+  public String email;
 
-    public LocalDate birthday;
+  public LocalDate birthday;
 
-    public LocalDateTime registerDate;
+  public LocalDateTime registerDate;
 
-    public boolean enable;
+  public boolean enable;
 
-    public boolean support;
+  public boolean support;
 
-    public String verificationCode;
+  public String verificationCode;
 
-    public LocalDateTime lastLoginDate;
+  public LocalDateTime lastLoginDate;
 
-    public List<Student> studentList;
+  public List<Student> studentList;
 
-    public StudentRequest() {
-    }
+  public StudentRequest() {
 
-    public Student getStudent() {
-        return student;
-    }
+  }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+  public Student getStudent() {
+    return student;
+  }
 
-    public Integer getStudentId() {
-        return studentId;
-    }
+  public void setStudent(Student student) {
+    this.student = student;
+  }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
+  public Integer getStudentId() {
+    return studentId;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setStudentId(Integer studentId) {
+    this.studentId = studentId;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public LocalDate getBirthday() {
-        return birthday;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+  public LocalDate getBirthday() {
+    return birthday;
+  }
 
-    public LocalDateTime getRegisterDate() {
-        return registerDate;
-    }
+  public void setBirthday(LocalDate birthday) {
+    this.birthday = birthday;
+  }
 
-    public void setRegisterDate(LocalDateTime registerDate) {
-        this.registerDate = registerDate;
-    }
+  public LocalDateTime getRegisterDate() {
+    return registerDate;
+  }
 
-    public boolean isEnable() {
-        return enable;
-    }
+  public void setRegisterDate(LocalDateTime registerDate) {
+    this.registerDate = registerDate;
+  }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
+  public boolean isEnable() {
+    return enable;
+  }
 
-    public boolean isSupport() {
-        return support;
-    }
+  public void setEnable(boolean enable) {
+    this.enable = enable;
+  }
 
-    public void setSupport(boolean support) {
-        this.support = support;
-    }
+  public boolean isSupport() {
+    return support;
+  }
 
-    public String getVerificationCode() {
-        return verificationCode;
-    }
+  public void setSupport(boolean support) {
+    this.support = support;
+  }
 
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
+  public String getVerificationCode() {
+    return verificationCode;
+  }
 
-    public LocalDateTime getLastLoginDate() {
-        return lastLoginDate;
-    }
+  public void setVerificationCode(String verificationCode) {
+    this.verificationCode = verificationCode;
+  }
 
-    public void setLastLoginDate(LocalDateTime lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
+  public LocalDateTime getLastLoginDate() {
+    return lastLoginDate;
+  }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
+  public void setLastLoginDate(LocalDateTime lastLoginDate) {
+    this.lastLoginDate = lastLoginDate;
+  }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
+  public List<Student> getStudentList() {
+    return studentList;
+  }
+
+  public void setStudentList(List<Student> studentList) {
+    this.studentList = studentList;
+  }
 
 }

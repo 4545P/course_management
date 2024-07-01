@@ -1,164 +1,170 @@
 package com.example.course_management.vo.request;
 
 import com.example.course_management.entity.Course;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * JI.
+ * 表示用於接收課程相關操作請求的請求對象。
+ * 這個類用於接收客戶端發送的課程相關操作的請求數據。
+ */
 public class CourseRequest {
 
-    public String courseCode;
+  public String courseCode;
 
-    public String courseTitle;
+  public String courseTitle;
 
-    public String courseInstructor;
+  public String courseInstructor;
 
-    public String courseDescription;
+  public String courseDescription;
 
-    public String courseWeek;
+  public String courseWeek;
 
-    public LocalDate courseDate;
+  public LocalDate courseDate;
 
-    public LocalDate courseEndDate;
+  public LocalDate courseEndDate;
 
-    public LocalTime classTime;
+  public LocalTime classTime;
 
-    public LocalTime classEndTime;
+  public LocalTime classEndTime;
 
-    public boolean classEnable;
+  public boolean classEnable;
 
-    public String classCity;
+  public String classCity;
 
-    public LocalDateTime classAdd;
+  public LocalDateTime classAdd;
 
-    public LocalDateTime classRevise;
+  public LocalDateTime classRevise;
 
-    public String personnel;
+  public String personnel;
 
-    public List<Course> courseList;
+  public List<Course> courseList;
 
-    public CourseRequest() {
-    }
+  public CourseRequest() {
 
-    public String getCourseCode() {
-        return courseCode;
-    }
+  }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
+  public String getCourseCode() {
+    return courseCode;
+  }
 
-    public String getCourseTitle() {
-        return courseTitle;
-    }
+  public void setCourseCode(String courseCode) {
+    this.courseCode = courseCode;
+  }
 
-    public void setCourseTitle(String courseTitle) {
-        this.courseTitle = courseTitle;
-    }
+  public String getCourseTitle() {
+    return courseTitle;
+  }
 
-    public String getCourseInstructor() {
-        return courseInstructor;
-    }
+  public void setCourseTitle(String courseTitle) {
+    this.courseTitle = courseTitle;
+  }
 
-    public void setCourseInstructor(String courseInstructor) {
-        this.courseInstructor = courseInstructor;
-    }
+  public String getCourseInstructor() {
+    return courseInstructor;
+  }
 
-    public String getCourseDescription() {
-        return courseDescription;
-    }
+  public void setCourseInstructor(String courseInstructor) {
+    this.courseInstructor = courseInstructor;
+  }
 
-    public void setCourseDescription(String courseDescription) {
-        this.courseDescription = courseDescription;
-    }
+  public String getCourseDescription() {
+    return courseDescription;
+  }
 
-    public String getCourseWeek() {
-        return courseWeek;
-    }
+  public void setCourseDescription(String courseDescription) {
+    this.courseDescription = courseDescription;
+  }
 
-    public void setCourseWeek(String courseWeek) {
-        this.courseWeek = courseWeek;
-    }
+  public String getCourseWeek() {
+    return courseWeek;
+  }
 
-    public LocalDate getCourseDate() {
-        return courseDate;
-    }
+  public void setCourseWeek(String courseWeek) {
+    this.courseWeek = courseWeek;
+  }
 
-    public void setCourseDate(LocalDate courseDate) {
-        this.courseDate = courseDate;
-    }
+  public LocalDate getCourseDate() {
+    return courseDate;
+  }
 
-    public LocalDate getCourseEndDate() {
-        return courseEndDate;
-    }
+  public void setCourseDate(LocalDate courseDate) {
+    this.courseDate = courseDate;
+  }
 
-    public void setCourseEndDate(LocalDate courseEndDate) {
-        this.courseEndDate = courseEndDate;
-    }
+  public LocalDate getCourseEndDate() {
+    return courseEndDate;
+  }
 
-    public LocalTime getClassTime() {
-        return classTime;
-    }
+  public void setCourseEndDate(LocalDate courseEndDate) {
+    this.courseEndDate = courseEndDate;
+  }
 
-    public void setClassTime(LocalTime classTime) {
-        this.classTime = classTime;
-    }
+  public LocalTime getClassTime() {
+    return classTime;
+  }
 
-    public LocalTime getClassEndTime() {
-        return classEndTime;
-    }
+  public void setClassTime(LocalTime classTime) {
+    this.classTime = classTime;
+  }
 
-    public void setClassEndTime(LocalTime classEndTime) {
-        this.classEndTime = classEndTime;
-    }
+  public LocalTime getClassEndTime() {
+    return classEndTime;
+  }
 
-    public boolean isClassEnable() {
-        return classEnable;
-    }
+  public void setClassEndTime(LocalTime classEndTime) {
+    this.classEndTime = classEndTime;
+  }
 
-    public void setClassEnable(boolean classEnable) {
-        this.classEnable = classEnable;
-    }
+  public boolean isClassEnable() {
+    return classEnable;
+  }
 
-    public String getClassCity() {
-        return classCity;
-    }
+  public void setClassEnable(boolean classEnable) {
+    this.classEnable = classEnable;
+  }
 
-    public void setClassCity(String classCity) {
-        this.classCity = classCity;
-    }
+  public String getClassCity() {
+    return classCity;
+  }
 
-    public LocalDateTime getClassAdd() {
-        return classAdd;
-    }
+  public void setClassCity(String classCity) {
+    this.classCity = classCity;
+  }
 
-    public void setClassAdd(LocalDateTime classAdd) {
-        this.classAdd = classAdd;
-    }
+  public LocalDateTime getClassAdd() {
+    return classAdd;
+  }
 
-    public LocalDateTime getClassRevise() {
-        return classRevise;
-    }
+  public void setClassAdd(LocalDateTime classAdd) {
+    this.classAdd = classAdd;
+  }
 
-    public void setClassRevise(LocalDateTime classRevise) {
-        this.classRevise = classRevise;
-    }
+  public LocalDateTime getClassRevise() {
+    return classRevise;
+  }
 
-    public String getPersonnel() {
-        return personnel;
-    }
+  public void setClassRevise(LocalDateTime classRevise) {
+    this.classRevise = classRevise;
+  }
 
-    public void setPersonnel(String personnel) {
-        this.personnel = personnel;
-    }
+  public String getPersonnel() {
+    return personnel;
+  }
 
-    public List<Course> getCourseList() {
-        return courseList;
-    }
+  public void setPersonnel(String personnel) {
+    this.personnel = personnel;
+  }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
-    }
+  public List<Course> getCourseList() {
+    return courseList;
+  }
+
+  public void setCourseList(List<Course> courseList) {
+    this.courseList = courseList;
+  }
+
 }
