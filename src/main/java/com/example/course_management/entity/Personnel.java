@@ -164,5 +164,4 @@ public class Personnel {
   public void setVerificationDate(LocalDateTime verificationDate) {
     this.verificationDate = verificationDate;
   }
-
 }

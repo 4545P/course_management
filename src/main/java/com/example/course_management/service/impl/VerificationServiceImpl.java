@@ -18,6 +18,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+/**
+ * JI.
+ * 驗證實現類，提供驗證邏輯的具體實現。
+ */
 @Service
 public class VerificationServiceImpl implements VerificationService {
 
@@ -42,7 +46,7 @@ public class VerificationServiceImpl implements VerificationService {
     this.studentDao = studentDao;
   }
 
-  // 生成并发送验证码
+  // 生成並發送驗證碼
   @Override
   public String sendPersonnelVerificationCode(String email) {
     // 隨機生成驗證碼
@@ -122,5 +126,4 @@ public class VerificationServiceImpl implements VerificationService {
       e.printStackTrace();
     }
   }
-
 }

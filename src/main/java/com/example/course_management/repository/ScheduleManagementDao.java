@@ -43,5 +43,4 @@ public interface ScheduleManagementDao extends JpaRepository<ScheduleManagement,
    * @return 符合條件的課程進度管理對象，如果不存在則返回 null
    */
   ScheduleManagement findByStudentIdAndCourseCodeAndCourseProject(String studentId, String courseCode, String courseProject);
-
 }

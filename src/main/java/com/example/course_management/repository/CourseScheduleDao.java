@@ -27,5 +27,4 @@ public interface CourseScheduleDao extends JpaRepository<CourseSchedule, Integer
    * @return 符合課程代碼和課程項目的課程排程資料，若不存在則返回 null
    */
   CourseSchedule findByCourseCodeAndCourseProject(String courseCode, String courseProject);
-
 }

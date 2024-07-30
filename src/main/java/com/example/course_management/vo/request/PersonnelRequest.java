@@ -136,5 +136,4 @@ public class PersonnelRequest {
   public void setUserList(List<Personnel> userList) {
     this.userList = userList;
   }
-
 }

@@ -166,5 +166,4 @@ public class CourseRequest {
   public void setCourseList(List<Course> courseList) {
     this.courseList = courseList;
   }
-
 }

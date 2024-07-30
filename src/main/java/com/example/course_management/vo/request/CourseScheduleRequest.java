@@ -84,5 +84,4 @@ public class CourseScheduleRequest {
   public void setScheduleList(List<CourseSchedule> scheduleList) {
     this.scheduleList = scheduleList;
   }
-
 }

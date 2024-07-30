@@ -19,5 +19,4 @@ public interface CourseDao extends JpaRepository<Course, String> {
    * @return 包含指定子串的課程列表
    */
   List<Course> findAllByCourseTitleContainingIgnoreCase(String title);
-
 }

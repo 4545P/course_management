@@ -138,5 +138,4 @@ public class ScheduleManagement {
   public void setSolve(boolean solve) {
     this.solve = solve;
   }
-
 }

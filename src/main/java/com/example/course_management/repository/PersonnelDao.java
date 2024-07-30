@@ -43,5 +43,4 @@ public interface PersonnelDao extends JpaRepository<Personnel, Integer> {
    * @return 符合條件的人員列表，如果不存在則返回空列表
    */
   List<Personnel> findAllByNameContainingIgnoreCase(String name);
-
 }

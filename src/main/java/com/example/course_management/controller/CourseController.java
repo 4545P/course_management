@@ -105,5 +105,4 @@ public class CourseController {
   public CourseResponse updateManagement(@RequestBody ScheduleManagementRequest scheduleManagementRequest) {
     return courseService.updateManagement(scheduleManagementRequest);
   }
-
 }

@@ -28,5 +28,4 @@ public interface CourseSelectionDao extends JpaRepository<CourseSelection, Integ
    */
   @Query("SELECT cs FROM CourseSelection cs WHERE cs.courseCode IS NOT NULL")
   List<CourseSelection> findStudentsWithSelectedCourses();
-
 }

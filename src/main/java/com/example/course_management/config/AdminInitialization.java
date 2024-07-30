@@ -46,7 +46,6 @@ public class AdminInitialization {
       personnelDao.save(admin);
     }
   }
-
 }
 
 

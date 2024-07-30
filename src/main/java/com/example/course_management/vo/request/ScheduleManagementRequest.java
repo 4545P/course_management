@@ -102,5 +102,4 @@ public class ScheduleManagementRequest {
   public void setManagementList(List<ScheduleManagement> managementList) {
     this.managementList = managementList;
   }
-
 }

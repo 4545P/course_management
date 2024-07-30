@@ -144,5 +144,4 @@ public class VerificationController {
     }
     return response;
   }
-
 }

@@ -35,5 +35,4 @@ public interface StudentDao extends JpaRepository<Student, Integer> {
    * @return 符合條件的學生記錄列表，如果不存在則返回空列表
    */
   List<Student> findAllByNameContainingIgnoreCase(String name);
-
 }

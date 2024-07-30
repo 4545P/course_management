@@ -68,5 +68,4 @@ public class CourseSelection {
   public void setCourseCode(String courseCode) {
     this.courseCode = courseCode;
   }
-
 }

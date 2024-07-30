@@ -61,7 +61,8 @@ public class PersonnelServiceImpl implements PersonnelService {
       // 如果沒有參數則返回全部
       personnelList = personnelDao.findAll();
     }
-    totalElements = personnelList.size(); // 計算總數
+    // 計算總數
+    totalElements = personnelList.size();
     List<Map<String, Object>> resultList = getMapPersonnel(personnelList);
     Map<String, Object> result = new HashMap<>();
     result.put("list", resultList);
@@ -79,7 +80,8 @@ public class PersonnelServiceImpl implements PersonnelService {
       // 如果沒有參數則返回全部
       studentList = studentDao.findAll();
     }
-    totalElements = studentList.size(); // 計算總數
+    // 計算總數
+    totalElements = studentList.size();
     List<Map<String, Object>> resultList = getMapStudent(studentList);
     Map<String, Object> result = new HashMap<>();
     result.put("list", resultList);
@@ -121,8 +123,10 @@ public class PersonnelServiceImpl implements PersonnelService {
 
   @Override
   public PersonnelResponse addPersonnel(Personnel personnel) {
-    if (personnel.getName().isBlank() || personnel.getPassword().isBlank()
-        || personnel.getEmail().isBlank() || personnel.getRole().isBlank()) {
+    if (personnel.getName().isBlank()
+        || personnel.getPassword().isBlank()
+        || personnel.getEmail().isBlank()
+        || personnel.getRole().isBlank()) {
       return new PersonnelResponse(Collections.singletonList(personnel), "新增人員失敗");
     } else {
       LocalDateTime registerTime = LocalDateTime.now();
@@ -136,7 +140,9 @@ public class PersonnelServiceImpl implements PersonnelService {
 
   @Override
   public PersonnelResponse addStudent(Student student) {
-    if (student.getName().isBlank() || student.getPassword().isBlank() || student.getEmail().isBlank()) {
+    if (student.getName().isBlank()
+        || student.getPassword().isBlank()
+        || student.getEmail().isBlank()) {
       return new PersonnelResponse("新增學員失敗", Collections.singletonList(student));
     }
     LocalDateTime registerTime = LocalDateTime.now();
@@ -151,8 +157,10 @@ public class PersonnelServiceImpl implements PersonnelService {
       student = studentDao.save(student);
       // 新增相應的選課表數據
       CourseSelection courseSelection = new CourseSelection();
-      courseSelection.setStudentId(student.getStudentId()); // 设置学号
-      courseSelection.setName(student.getName()); // 设置姓名
+      // 設置學號
+      courseSelection.setStudentId(student.getStudentId());
+      // 設置姓名
+      courseSelection.setName(student.getName());
       courseSelectionDao.save(courseSelection);
       return new PersonnelResponse("新增學員成功", Collections.singletonList(student));
     } catch (Exception e) {
@@ -228,7 +236,12 @@ public class PersonnelServiceImpl implements PersonnelService {
     // 如果人員有紀錄則比對密碼
     if (userPersonnel != null) {
       if (password.equals(userPersonnel.getPassword())) {
-        return new PersonnelResponse(userPersonnel.getRole(), userPersonnel.getId(), userPersonnel.getName(), userPersonnel.getPassword(), userPersonnel.getEnable(), userPersonnel.getEmail());
+        return new PersonnelResponse(userPersonnel.getRole(),
+          userPersonnel.getId(),
+          userPersonnel.getName(),
+          userPersonnel.getPassword(),
+          userPersonnel.getEnable(),
+          userPersonnel.getEmail());
       }
     }
     // 如果不是人員則找學員
@@ -236,7 +249,12 @@ public class PersonnelServiceImpl implements PersonnelService {
     // 如果學員有紀錄則比對密碼
     if (userStudent != null) {
       if (password.equals(userStudent.getPassword())) {
-        return new PersonnelResponse("student", userStudent.getStudentId(), userStudent.getName(), userStudent.getPassword(), userStudent.isEnable(), userStudent.getEmail());
+        return new PersonnelResponse("student",
+          userStudent.getStudentId(),
+          userStudent.getName(),
+          userStudent.getPassword(),
+          userStudent.isEnable(),
+          userStudent.getEmail());
       }
     }
     return new PersonnelResponse("登入失敗");
@@ -247,5 +265,4 @@ public class PersonnelServiceImpl implements PersonnelService {
   private int calculateAge(LocalDate birthDate, LocalDate currentDate) {
     return currentDate.getYear() - birthDate.getYear();
   }
-
 }

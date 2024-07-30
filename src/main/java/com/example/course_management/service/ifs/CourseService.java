@@ -27,5 +27,4 @@ public interface CourseService {
   CourseResponse courseSchedule(CourseScheduleRequest courseScheduleRequest);
 
   CourseResponse updateManagement(ScheduleManagementRequest scheduleManagementRequest);
-
 }

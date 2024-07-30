@@ -112,7 +112,8 @@ public class CourseServiceImpl implements CourseService {
     } else {
       scheduleList = scheduleManagementDao.findAll();
     }
-    totalElements = scheduleList.size(); // 計算總數
+    // 計算總數
+    totalElements = scheduleList.size();
     List<Map<String, Object>> resultList = getMapSchedule(scheduleList);
     Map<String, Object> result = new HashMap<>();
     result.put("list", resultList);
@@ -159,12 +160,14 @@ public class CourseServiceImpl implements CourseService {
           || course.getClassCity().isBlank()
           || course.getPersonnel().isBlank()) {
         errorList.add(course);
-        continue; // 可以在此處避免重複進行後續操作
+        // 可以在此處避免重複進行後續操作
+        continue;
       }
       for (String day : course.getCourseWeekArray()) {
         if (day == null || day.isBlank()) {
           errorList.add(course);
-          break; // 在找到無效 day 後立即退出迴圈
+          // 在找到無效 day 後立即退出迴圈
+          break;
         }
       }
       if (!errorList.contains(course)) {
@@ -275,7 +278,10 @@ public class CourseServiceImpl implements CourseService {
     List<CourseSchedule> scheduleList = courseScheduleRequest.getScheduleList();
     List<CourseSchedule> errorList = new ArrayList<>();
     for (CourseSchedule schedule : scheduleList) {
-      if (schedule.getCourseDate() == null || schedule.getCourseOutline().isBlank() || schedule.getCourseProject().isBlank() || schedule.getCourseContent().isBlank()) {
+      if (schedule.getCourseDate() == null
+          || schedule.getCourseOutline().isBlank()
+          || schedule.getCourseProject().isBlank()
+          || schedule.getCourseContent().isBlank()) {
         errorList.add(schedule);
       }
     }
@@ -312,7 +318,8 @@ public class CourseServiceImpl implements CourseService {
         // 將更新後的對象添加到列表中，如果需要
         updateManagementList.add(existingScheduleManagement);
       } else {
-        errorList.add(item); // 如果找不到對應的資料，將其添加到錯誤列表中
+        // 如果找不到對應的資料，將其添加到錯誤列表中
+        errorList.add(item);
       }
     }
     if (!errorList.isEmpty()) {
@@ -347,11 +354,13 @@ public class CourseServiceImpl implements CourseService {
         clearCourseSelection(item.getCourseCode());
       }
       if (nowDateTime.isAfter(courseStartDateTime) && nowDateTime.isBefore(courseEndDateTime)) {
-        item.setClassEnable(true); // 開課中
+        // 開課中
+        item.setClassEnable(true);
         item.setClassRevise(nowDateTime);
         item.setPersonnel("admin");
       } else {
-        item.setClassEnable(false); // 未開課
+        // 未開課
+        item.setClassEnable(false);
       }
     }
     courseDao.saveAll(courseList);
@@ -368,7 +377,8 @@ public class CourseServiceImpl implements CourseService {
   private void clearCourseSelection(String courseCode) {
     List<CourseSelection> selections = courseSelectionDao.findByCourseCode(courseCode);
     for (CourseSelection selection : selections) {
-      selection.setCourseCode(null); // 清空選課的課程代碼
+      // 清空選課的課程代碼
+      selection.setCourseCode(null);
     }
     courseSelectionDao.saveAll(selections);
   }
@@ -412,5 +422,4 @@ public class CourseServiceImpl implements CourseService {
     defaultSchedule.setSolve(false);
     return defaultSchedule;
   }
-
 }

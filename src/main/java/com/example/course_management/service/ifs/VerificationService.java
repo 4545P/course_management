@@ -17,5 +17,4 @@ public interface VerificationService {
 
   // 使用JavaMailSender接口發送郵件
   void sendEmail(String toEmail, String subject, String body);
-
 }

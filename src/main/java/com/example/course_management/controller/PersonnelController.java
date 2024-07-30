@@ -105,5 +105,4 @@ public class PersonnelController {
   public PersonnelResponse login(@RequestBody PersonnelRequest personnelRequest) {
     return personnelService.isValidPersonnel(personnelRequest.getName(), personnelRequest.getPassword());
   }
-
 }

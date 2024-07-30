@@ -53,5 +53,4 @@ public class CourseSelectionRequest {
   public void setCourseCode(String courseCode) {
     this.courseCode = courseCode;
   }
-
 }

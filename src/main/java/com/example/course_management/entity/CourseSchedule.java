@@ -113,5 +113,4 @@ public class CourseSchedule {
   public void setCourseContent(String courseContent) {
     this.courseContent = courseContent;
   }
-
 }

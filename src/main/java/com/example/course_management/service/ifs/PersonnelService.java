@@ -30,5 +30,4 @@ public interface PersonnelService {
   PersonnelResponse deleteStudent(Integer studentId);
 
   PersonnelResponse isValidPersonnel(String name, String password);
-
 }

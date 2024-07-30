@@ -236,5 +236,4 @@ public class Course {
   public void setPersonnel(String personnel) {
     this.personnel = personnel;
   }
-
 }
