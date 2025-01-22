@@ -1,5 +1,6 @@
 package com.example.course_management.service.impl;
 
+import com.example.course_management.constants.WidgetApiRtnCode;
 import com.example.course_management.entity.Personnel;
 import com.example.course_management.entity.Student;
 import com.example.course_management.repository.PersonnelDao;
@@ -7,6 +8,9 @@ import com.example.course_management.repository.StudentDao;
 import com.example.course_management.service.ifs.VerificationService;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,6 +48,46 @@ public class VerificationServiceImpl implements VerificationService {
   @Autowired
   public void setStudentDao(StudentDao studentDao) {
     this.studentDao = studentDao;
+  }
+
+  @Override
+  public Map<String, Object> sendVerificationCode(String email, boolean isPersonnel) {
+    String verificationCode = isPersonnel ? sendPersonnelVerificationCode(email) :
+        sendStudentVerificationCode(email);
+    // 可以在這裡處理其他邏輯，例如將驗證碼儲存到暫存中
+    System.out.println(verificationCode);
+    Map<String, Object> response = new HashMap<>();
+    response.put(WidgetApiRtnCode.SUCCESSFUL.getMessage(), true);
+    return response;
+  }
+
+  @Override
+  public Map<String, Object> verifyIdentity(Map<String, Object> requestData, boolean isPersonnel) {
+    String idKey = isPersonnel ? "id" : "studentId";
+    Integer id = (Integer) requestData.get(idKey);
+    String code = (String) requestData.get("code");
+    Map<String, Object> response = new HashMap<>();
+    Optional<?> optionalIdentity = isPersonnel ? personnelDao.findById(id) : studentDao.findById(id);
+    if (optionalIdentity.isPresent()) {
+      Object identity = optionalIdentity.get();
+      String storedVerificationCode = isPersonnel ? ((Personnel) identity).getVerificationCode() :
+          ((Student) identity).getVerificationCode();
+      if (storedVerificationCode != null && storedVerificationCode.equals(code)) {
+        if (isPersonnel) {
+          ((Personnel) identity).setEnable(true);
+          personnelDao.save((Personnel) identity);
+        } else {
+          ((Student) identity).setEnable(true);
+          studentDao.save((Student) identity);
+        }
+        response.put(WidgetApiRtnCode.SUCCESSFUL.getMessage(), true);
+      } else {
+        response.put(WidgetApiRtnCode.FAILED.getMessage(), false);
+      }
+    } else {
+      response.put(WidgetApiRtnCode.FAILED.getMessage(), false);
+    }
+    return response;
   }
 
   // 生成並發送驗證碼
@@ -120,9 +164,9 @@ public class VerificationServiceImpl implements VerificationService {
         messageHelper.setText(body, true);
       };
       mailSender.send(preparator);
-      System.out.println("Email sent successfully to: " + toEmail);
+      System.out.println(WidgetApiRtnCode.SUCCESSFUL.getCode() + toEmail);
     } catch (MailException e) {
-      System.out.println("Failed to send email to: " + toEmail);
+      System.out.println(WidgetApiRtnCode.FAILED.getCode() + toEmail);
       e.printStackTrace();
     }
   }

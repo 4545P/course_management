@@ -34,7 +34,7 @@ public interface PersonnelDao extends JpaRepository<Personnel, Integer> {
    * @param name 人員名稱
    * @return 符合條件的人員對象，如果不存在則返回 null
    */
-  Personnel findByName(String name);
+  List<Personnel> findByName(String name);
 
   /**
    * 根據名稱模糊查詢所有符合條件的人員列表.

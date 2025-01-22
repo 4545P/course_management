@@ -26,7 +26,7 @@ public interface StudentDao extends JpaRepository<Student, Integer> {
    * @param name 學生的姓名
    * @return 符合條件的學生對象，如果不存在則返回 null
    */
-  Student findByName(String name);
+  List<Student> findByName(String name);
 
   /**
    * 根據姓名模糊查詢所有符合條件的學生記錄列表.

@@ -1,5 +1,6 @@
 package com.example.course_management.service.impl;
 
+import com.example.course_management.constants.WidgetApiRtnCode;
 import com.example.course_management.entity.CourseSelection;
 import com.example.course_management.entity.Personnel;
 import com.example.course_management.entity.Student;
@@ -19,13 +20,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * JI.
  * 人員服務實現類，提供人員相關業務邏輯的具體實現。
+ * @author blue
  */
 @Service
 public class PersonnelServiceImpl implements PersonnelService {
@@ -119,53 +123,65 @@ public class PersonnelServiceImpl implements PersonnelService {
     return responses;
   }
 
-
-
   @Override
   public PersonnelResponse addPersonnel(Personnel personnel) {
     if (personnel.getName().isBlank()
-        || personnel.getPassword().isBlank()
-        || personnel.getEmail().isBlank()
-        || personnel.getRole().isBlank()) {
-      return new PersonnelResponse(Collections.singletonList(personnel), "新增人員失敗");
+      || personnel.getPassword().isBlank()
+      || personnel.getEmail().isBlank()
+      || personnel.getRole().isBlank()) {
+      return new PersonnelResponse(Collections.singletonList(personnel), WidgetApiRtnCode.FAILED_TO_ADD_NEW_STAFF.getMessage());
     } else {
+      // 密碼加鹽加密
+      BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+      String encodedPassword = passwordEncoder.encode(personnel.getPassword());
+      // 設置加密後的密碼
+      personnel.setPassword(encodedPassword);
+
       LocalDateTime registerTime = LocalDateTime.now();
       personnel.setRegisterDate(registerTime);
       personnel.setEnable(false);
       personnelDao.save(personnel);
-      return new PersonnelResponse(Collections.singletonList(personnel), "新增人員成功");
+      return new PersonnelResponse(Collections.singletonList(personnel), WidgetApiRtnCode.ADDED_FACULTY_SUCCESSFULLY.getMessage());
     }
   }
-
 
   @Override
   public PersonnelResponse addStudent(Student student) {
     if (student.getName().isBlank()
-        || student.getPassword().isBlank()
-        || student.getEmail().isBlank()) {
-      return new PersonnelResponse("新增學員失敗", Collections.singletonList(student));
+      || student.getPassword().isBlank()
+      || student.getEmail().isBlank()) {
+      return new PersonnelResponse(WidgetApiRtnCode.PARANETER_REQUIRE.getMessage(), Collections.singletonList(student));
     }
+
+    // 密碼加鹽加密
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    String encodedPassword = passwordEncoder.encode(student.getPassword());
+    // 設置加密後的密碼
+    student.setPassword(encodedPassword);
+
     LocalDateTime registerTime = LocalDateTime.now();
     student.setRegisterDate(registerTime);
     student.setEnable(false);
+
     LocalDate birthday = student.getBirthday();
     if (birthday != null) {
       int age = calculateAge(birthday, LocalDate.now());
       student.setSupport(age < 29);
     }
+
     try {
       student = studentDao.save(student);
+
       // 新增相應的選課表數據
       CourseSelection courseSelection = new CourseSelection();
-      // 設置學號
       courseSelection.setStudentId(student.getStudentId());
-      // 設置姓名
       courseSelection.setName(student.getName());
       courseSelectionDao.save(courseSelection);
-      return new PersonnelResponse("新增學員成功", Collections.singletonList(student));
+
+      return new PersonnelResponse(WidgetApiRtnCode.ADDED_FACULTY_SUCCESSFULLY.getMessage(), Collections.singletonList(student));
     } catch (Exception e) {
       // 處理資料庫保存異常
-      return new PersonnelResponse("新增學員失敗", Collections.singletonList(student));
+      return new PersonnelResponse(WidgetApiRtnCode.FAILED_TO_ADD_NEW_STAFF.getMessage(), Collections.singletonList(student));
     }
   }
 
@@ -175,7 +191,7 @@ public class PersonnelServiceImpl implements PersonnelService {
     Integer userId = user.getId();
     Optional<Personnel> existingPersonnelOptional = personnelDao.findById(userId);
     if (existingPersonnelOptional.isEmpty()) {
-      return new PersonnelResponse("更新人員失敗，找不到人員");
+      return new PersonnelResponse(WidgetApiRtnCode.UPDATE_STAFF_FAILED.getMessage());
     }
     Personnel existingUser = existingPersonnelOptional.get();
     if (StringUtils.hasText(user.getName())) {
@@ -194,7 +210,7 @@ public class PersonnelServiceImpl implements PersonnelService {
       existingUser.setBirthday(user.getBirthday());
     }
     personnelDao.save(existingUser);
-    return new PersonnelResponse("Update successful");
+    return new PersonnelResponse(WidgetApiRtnCode.UPDATE_STAFF_SUCCESSFUL.getMessage());
   }
 
 
@@ -204,7 +220,7 @@ public class PersonnelServiceImpl implements PersonnelService {
     Integer studentId = student.getStudentId();
     Optional<Student> existingStudentOptional = studentDao.findById(studentId);
     if (existingStudentOptional.isEmpty()) {
-      return new PersonnelResponse("更新學員失敗，找不到學員");
+      return new PersonnelResponse(WidgetApiRtnCode.UPDATE_STAFF_FAILED.getMessage());
     }
     Student existingStudent = existingStudentOptional.get();
     if (StringUtils.hasText(student.getName())) {
@@ -217,7 +233,7 @@ public class PersonnelServiceImpl implements PersonnelService {
       existingStudent.setBirthday(student.getBirthday());
     }
     studentDao.save(existingStudent);
-    return new PersonnelResponse("更新學員成功");
+    return new PersonnelResponse(WidgetApiRtnCode.UPDATE_STAFF_SUCCESSFUL.getMessage());
   }
 
   @Override
@@ -232,32 +248,44 @@ public class PersonnelServiceImpl implements PersonnelService {
 
   @Override
   public PersonnelResponse isValidPersonnel(String name, String password) {
-    Personnel userPersonnel = personnelDao.findByName(name);
-    // 如果人員有紀錄則比對密碼
-    if (userPersonnel != null) {
-      if (password.equals(userPersonnel.getPassword())) {
-        return new PersonnelResponse(userPersonnel.getRole(),
+    // 查詢所有相同名稱的 Personnel
+    List<Personnel> personnelList = personnelDao.findByName(name);
+
+    // 如果找到對應的 Personnel，則比對密碼
+    for (Personnel userPersonnel : personnelList) {
+      // 使用 BCrypt 來比對加鹽密碼
+      if (BCrypt.checkpw(password, userPersonnel.getPassword())) {
+        return new PersonnelResponse(
+          userPersonnel.getRole(),
           userPersonnel.getId(),
           userPersonnel.getName(),
           userPersonnel.getPassword(),
           userPersonnel.getEnable(),
-          userPersonnel.getEmail());
+          userPersonnel.getEmail()
+        );
       }
     }
-    // 如果不是人員則找學員
-    Student userStudent = studentDao.findByName(name);
-    // 如果學員有紀錄則比對密碼
-    if (userStudent != null) {
-      if (password.equals(userStudent.getPassword())) {
-        return new PersonnelResponse("student",
+
+    // 查詢所有相同名稱的 Student
+    List<Student> studentList = studentDao.findByName(name);
+
+    // 如果找到對應的 Student，則比對密碼
+    for (Student userStudent : studentList) {
+      // 使用 BCrypt 來比對加鹽密碼
+      if (BCrypt.checkpw(password, userStudent.getPassword())) {
+        return new PersonnelResponse(
+          "student",
           userStudent.getStudentId(),
           userStudent.getName(),
           userStudent.getPassword(),
           userStudent.isEnable(),
-          userStudent.getEmail());
+          userStudent.getEmail()
+        );
       }
     }
-    return new PersonnelResponse("登入失敗");
+
+    // 如果都找不到匹配的使用者或密碼不正確
+    return new PersonnelResponse(WidgetApiRtnCode.FAILED.getMessage());
   }
 
 

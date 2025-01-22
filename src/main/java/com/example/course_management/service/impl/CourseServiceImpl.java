@@ -1,6 +1,7 @@
 package com.example.course_management.service.impl;
 
 
+import com.example.course_management.constants.WidgetApiRtnCode;
 import com.example.course_management.entity.Course;
 import com.example.course_management.entity.CourseSchedule;
 import com.example.course_management.entity.CourseSelection;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * JI.
  * 課程服務的實現類，同時啟用了計劃任務（Scheduling）。
+ * @author blue
  */
 @EnableScheduling
 @Service
@@ -75,7 +77,7 @@ public class CourseServiceImpl implements CourseService {
       // 如果沒有參數則回傳全部
       courseList = courseDao.findAll();
     }
-    totalElements = courseList.size(); // 計算總數
+    totalElements = courseList.size();
     List<Map<String, Object>> resultList = getMapCourse(courseList);
     Map<String, Object> result = new HashMap<>();
     result.put("list", resultList);
@@ -176,10 +178,10 @@ public class CourseServiceImpl implements CourseService {
       }
     }
     if (!errorList.isEmpty()) {
-      return new CourseResponse(errorList, "新增課程失敗");
+      return new CourseResponse(errorList, WidgetApiRtnCode.ADD_COURSE_FAIL.getMessage());
     }
     courseDao.saveAll(courseList);
-    return new CourseResponse(courseList, "新增課程成功");
+    return new CourseResponse(courseList, WidgetApiRtnCode.ADD_COURSE_SUCCESSFUL.getMessage());
   }
 
   @Override
@@ -228,10 +230,10 @@ public class CourseServiceImpl implements CourseService {
       }
     }
     if (!errorList.isEmpty()) {
-      return new CourseResponse(errorList, "更新課程失敗");
+      return new CourseResponse(errorList, WidgetApiRtnCode.UPDATE_COURSE_FAIL.getMessage());
     }
     courseDao.saveAll(updateCourseList);
-    return new CourseResponse(updateCourseList, "更新課程成功");
+    return new CourseResponse(updateCourseList, WidgetApiRtnCode.UPDATE_COURSE_SUCCESSFUL.getMessage());
   }
 
 
@@ -243,26 +245,26 @@ public class CourseServiceImpl implements CourseService {
   @Override
   public CourseResponse courseSelection(Integer studentId, String courseCode) {
     if (studentId == null || courseCode == null) {
-      return new CourseResponse("資料錯誤");
+      return new CourseResponse(WidgetApiRtnCode.PARANETER_REQUIRE.getMessage());
     }
     // 查詢學生的選課記錄
     Optional<CourseSelection> courseSelectionOptional = courseSelectionDao.findById(studentId);
     if (courseSelectionOptional.isEmpty()) {
-      return new CourseResponse("找不到學生");
+      return new CourseResponse(WidgetApiRtnCode.NO_STUDENTS_FOUND.getMessage());
     }
     CourseSelection selection = courseSelectionOptional.get();
     // 檢查該學生是否已經選擇了一堂課
     if (selection.getCourseCode() != null) {
-      return new CourseResponse("學生已經選擇了課程");
+      return new CourseResponse(WidgetApiRtnCode.THE_STUDENT_HAS_SELECTED_A_COURSE.getMessage());
     }
     // 查詢課程是否存在並可選擇
     Optional<Course> courseOptional = courseDao.findById(courseCode);
     if (courseOptional.isEmpty()) {
-      return new CourseResponse(courseCode, "找不到該課程");
+      return new CourseResponse(courseCode, WidgetApiRtnCode.THE_COURSE_CANNOT_BE_FOUND.getMessage());
     }
     Course course = courseOptional.get();
     if (!course.isClassEnable()) {
-      return new CourseResponse(courseCode, "本門課程無法選擇");
+      return new CourseResponse(courseCode, WidgetApiRtnCode.THIS_COURSE_CANNOT_BE_SELECTED.getMessage());
     }
     // 創建 CourseSelection 實體並設定屬性
     CourseSelection courseSelection = new CourseSelection();
@@ -270,7 +272,7 @@ public class CourseServiceImpl implements CourseService {
     courseSelection.setName(selection.getName());
     courseSelection.setCourseCode(courseCode);
     courseSelectionDao.save(courseSelection);
-    return new CourseResponse(courseCode, "選課成功");
+    return new CourseResponse(courseCode, WidgetApiRtnCode.COURSE_SELECTION_SUCCESSFUL.getMessage());
   }
 
   @Override
@@ -286,10 +288,10 @@ public class CourseServiceImpl implements CourseService {
       }
     }
     if (!errorList.isEmpty()) {
-      return new CourseResponse("新增課程日程失敗", errorList);
+      return new CourseResponse(WidgetApiRtnCode.FAILED_TO_ADD_COURSE_SCHEDULE.getMessage(), errorList);
     }
     courseScheduleDao.saveAll(scheduleList);
-    return new CourseResponse("新增課程日程成功", scheduleList);
+    return new CourseResponse(WidgetApiRtnCode.ADDED_COURSE_SCHEDULE_SUCCESSFULLY.getMessage(), scheduleList);
   }
 
 
@@ -323,10 +325,10 @@ public class CourseServiceImpl implements CourseService {
       }
     }
     if (!errorList.isEmpty()) {
-      return new CourseResponse("更新學員進度失敗");
+      return new CourseResponse(WidgetApiRtnCode.FAILED_TO_UPDATE_STUDENT_PROGRESS.getMessage());
     }
     scheduleManagementDao.saveAll(updateManagementList);
-    return new CourseResponse("更新學員進度成功");
+    return new CourseResponse(WidgetApiRtnCode.UPDATE_STUDENT_PROGRESS_SUCCESSFULLY.getMessage());
   }
 
 
@@ -342,7 +344,7 @@ public class CourseServiceImpl implements CourseService {
    */
   @Scheduled(cron = "0 0 8 * * ?")
   public void courseTimeChecker() {
-    System.out.println("定時任務：開始確認");
+    System.out.println(WidgetApiRtnCode.SCHEDULED_TASKS_START.getMessage());
     List<Course> courseList = courseDao.findAll();
     for (Course item : courseList) {
       LocalDate courseDate = item.getCourseDate();

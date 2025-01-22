@@ -20,14 +20,15 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     //資料庫
-    implementation 'mysql:mysql-connector-java:8.0.31'
+    implementation 'org.postgresql:postgresql:42.6.0'
     //網頁
     implementation 'org.springframework.boot:spring-boot-starter-web'
     //信箱
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    //登入功能
-    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    //加鹽
+    implementation 'org.springframework.security:spring-security-core:5.6.2'
+    implementation 'org.mindrot:jbcrypt:0.4'
     implementation 'commons-beanutils:commons-beanutils:1.9.4'
     //圖表
     implementation 'net.sf.ehcache:ehcache:2.10.6'

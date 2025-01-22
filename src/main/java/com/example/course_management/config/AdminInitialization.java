@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,7 +37,11 @@ public class AdminInitialization {
     if (!personnelDao.existsByName("admin")) {
       Personnel admin = new Personnel();
       admin.setName("admin");
-      admin.setPassword("admin");
+
+      // 使用 BCrypt 加鹽並加密密碼
+      String hashedPassword = BCrypt.hashpw("admin", BCrypt.gensalt());
+      admin.setPassword(hashedPassword);
+
       admin.setEmail("admin");
       admin.setBirthday(LocalDate.now());
       admin.setRole("admin");
